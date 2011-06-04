@@ -1,0 +1,8 @@
+// SQL Info goes here
+$db_server = "blah"; // CHANGE THIS
+$db_username = "blah"; // CHANGE THIS
+$db_pass = "blah"; // CHANGE THIS
+$db_database = "blah"; // CHANGE THIS
+
+// Don't change anything below HERE!!
+// ------------------------------------------

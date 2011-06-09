@@ -5,6 +5,7 @@
 // 	-format: JSON or XML
 // 	-num: Number to return
 // 	-secret: API Key
+//  -valid_email: yes or no? yes only returns results with an email that is not null.
 //
 // Returns:
 // id - Mochi User ID
@@ -22,15 +23,32 @@ if(isset($_GET['format'])) {
 //Set our variables
 $format = strtolower($_GET['format']);
 
-$num = 20;	// By default, pull 20 entries
-$num = intval($_GET['num']);
-
 //Connect to the Database
 $con = mysql_connect($db_server, $db_username, $db_pass) or die ('MySQL Error.');
 mysql_select_db($db_database, $con) or die('MySQL Error.');
 
+// Construct query based on parameters
+$query = "SELECT uid, email, name, date_added FROM users ";
+
+if(isset($_GET['uid']))
+{
+	$query .= "WHERE 'uid' = '" . $_GET['uid'] . "'";
+}
+
+if($_GET['valid_email'] = "yes")
+{
+	$query .= "WHERE email IS NOT NULL AND email != '' ";
+}
+
+$query .= "ORDER BY 'uid' DESC ";
+
+$num = 20;	// By default, pull 20 entries
+$num = intval($_GET['num']);
+
+$query .= "LIMIT ".$num;
+
 //Run our query
-$result = mysql_query("SELECT uid, email, name, date_added FROM users ORDER BY 'id' DESC LIMIT " . $num, $con) or die('MySQL Error.');
+$result = mysql_query($query, $con) or die('MySQL Error.');
 /*  uid - int 			(example: 3)
 	email - string 		(example: a@b.com)
 	name - string		(example: Bob Lahblah)

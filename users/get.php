@@ -32,18 +32,17 @@ $query = "SELECT uid, email, name, date_added FROM users ";
 
 if(isset($_GET['uid']))
 {
-	$query .= "WHERE 'uid' = '" . $_GET['uid'] . "'";
-}
-
-if($_GET['valid_email'] = "yes")
-{
-	$query .= "WHERE email IS NOT NULL AND email != '' ";
+	$query .= "WHERE uid = '" . $_GET['uid'] . "' ";
 }
 
 $query .= "ORDER BY 'uid' DESC ";
 
 $num = 20;	// By default, pull 20 entries
-$num = intval($_GET['num']);
+
+if(isset($_GET['num']))
+{	
+	$num = intval($_GET['num']);
+}
 
 $query .= "LIMIT ".$num;
 

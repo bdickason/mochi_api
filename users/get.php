@@ -28,7 +28,7 @@ $con = mysql_connect($db_server, $db_username, $db_pass) or die ('MySQL Error.')
 mysql_select_db($db_database, $con) or die('MySQL Error.');
 
 // Construct query based on parameters
-$query = "SELECT uid, email, name, date_added FROM users ";
+$query = "SELECT * FROM users ";
 
 if(isset($_GET['uid']))
 {
@@ -59,13 +59,13 @@ if($format == 'json') {
 
 $users = array();
 while($user = mysql_fetch_array($result, MYSQL_ASSOC)) {
-$users[] = array('post'=>$user);
+$users[] = $user;
 
 // Future - convert name to firstname, lastname
 
 }
 
-$output = json_encode(array('posts' => $users));
+$output = json_encode(array('users' => $users));
 
 } elseif($format == 'xml') {
 
